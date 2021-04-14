@@ -1,0 +1,51 @@
+<div class="content" fxLayout="column" fxLayoutAlign="space-between center">
+    <h1>Your animals</h1>
+    <div class="no-animals" *ngIf="!animals.length">
+        <h2>You have no animals</h2>
+    </div>
+
+    <div class="all-animals" fxLayout="row" fxLayoutAlign="flex-start start" fxLayoutGap="10px">
+        <div class="single-animal" *ngFor="let animal of animals">
+            <app-animal-card [animal]="animal"></app-animal-card>
+        </div>
+
+    </div>
+    <div class="add-animal"><button mat-raised-button class="btn" (click)="addAnimal = true">Add animal</button></div>
+    <mat-card *ngIf="addAnimal" fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title>
+            Add animal form
+        </mat-card-title>
+        <form name="form" (ngSubmit)="f.form.valid && createAnimal()" #f="ngForm" novalidate>
+            <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
+                <label for="name">Enter name</label>
+                <input type="text" class="form-control" name="name" [(ngModel)]="form.name" required minlength="3" maxlength="30" #name="ngModel" />
+                <div class="alert-danger" *ngIf="f.submitted && name.invalid">
+                    <div *ngIf="name.errors.required">Name is required</div>
+                    <div *ngIf="name.errors.minlength">
+                        Name must be at least 3 characters
+                    </div>
+                    <div *ngIf="name.errors.maxlength">
+                        Name must be at most 30 characters
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
+                <label for="imgurl">Img url</label>
+                <input type="text" class="form-control" name="imgurl" [(ngModel)]="form.imgurl" required #imgurl="ngModel" />
+                <div class="alert-danger" *ngIf="f.submitted && imgurl.invalid">
+                    <div *ngIf="imgurl.errors.required">Image url is required</div>
+                </div>
+            </div>
+            <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" name="age" [(ngModel)]="form.age" required #age="ngModel" />
+                <div class="alert-danger" *ngIf="f.submitted && age.invalid">
+                    <div *ngIf="age.errors.required">Age is required</div>
+                </div>
+            </div>
+            <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
+                <button mat-raised-button class="btn" color="primary">Confirm changes</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

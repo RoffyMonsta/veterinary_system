@@ -1,0 +1,50 @@
+<div class="container" *ngIf="currentUser; else loggedOut" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card *ngIf="!changeUser" fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title>
+            {{ currentUser[0].username }} Profile
+        </mat-card-title>
+        <img src="{{currentUser[0].imgurl}}" alt="" width="200px">
+        <p>
+            Email: {{ currentUser[0].email }}
+        </p>
+        <p>
+            Fullname: {{ currentUser[0].fullname }}
+        </p>
+        <button mat-raised-button class="btn" (click)="changeData()">Change data</button>
+    </mat-card>
+    <mat-card *ngIf="changeUser" fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title>
+            {{ currentUser[0].username }} Profile
+        </mat-card-title>
+        <img src="{{currentUser[0].imgurl}}" alt="" width="200px">
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
+                <label for="fullname">Change fullname</label>
+                <input type="text" class="form-control" name="fullname" [(ngModel)]="form.fullname" required minlength="3" maxlength="30" #fullname="ngModel" />
+                <div class="alert-danger" *ngIf="f.submitted && fullname.invalid">
+                    <div *ngIf="fullname.errors.required">Fullname is required</div>
+                    <div *ngIf="fullname.errors.minlength">
+                        Fullname must be at least 3 characters
+                    </div>
+                    <div *ngIf="fullname.errors.maxlength">
+                        Fullname must be at most 30 characters
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
+                <label for="imgurl">Img url</label>
+                <input type="text" class="form-control" name="imgurl" [(ngModel)]="form.imgurl" required #imgurl="ngModel" />
+                <div class="alert-danger" *ngIf="f.submitted && imgurl.invalid">
+                    <div *ngIf="imgurl.errors.required">Image url is required</div>
+                </div>
+            </div>
+            <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
+                <button mat-raised-button class="btn" color="primary">Confirm changes</button>
+            </div>
+        </form>
+    </mat-card>
+</div>
+
+<ng-template #loggedOut>
+    Please login.
+</ng-template>

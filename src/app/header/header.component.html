@@ -1,0 +1,41 @@
+<mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" color="primary">
+
+    <mat-list routerLinkActive="active" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-list-item>
+            <button class="btn" mat-button><a href="/home" class="nav-link" [routerLink]='["home"]'>Home</a></button>
+        </mat-list-item>
+        <mat-list-item *ngIf="showAdminBoard">
+            <button class="btn" mat-button><a href="/admin" class="nav-link" [routerLink]='["admin"]'>Admin Board</a></button>
+        </mat-list-item>
+        <mat-list-item *ngIf="showDoctorBoard">
+            <button class="btn" mat-button><a href="/mod" class="nav-link" [routerLink]='["mod"]'>Doctor Board</a></button>
+        </mat-list-item>
+        <mat-list-item>
+            <button class="btn" mat-button><a href="/pets" class="nav-link" *ngIf="isLoggedIn" [routerLink]='["pets"]'>Your pets</a></button>
+        </mat-list-item>
+        <mat-list-item>
+            <button class="btn" mat-button><a href="/visit" class="nav-link" *ngIf="isLoggedIn" [routerLink]='["visit"]'>Visit doctor</a></button>
+        </mat-list-item>
+        <mat-list-item>
+            <button class="btn" mat-button><a href="/story" class="nav-link" *ngIf="isLoggedIn" [routerLink]='["story"]'>Show history</a></button>
+        </mat-list-item>
+    </mat-list>
+
+    <mat-list *ngIf="!isLoggedIn" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-list-item>
+            <button class="btn" mat-button><a href="/register" class="nav-link" [routerLink]='["register"]'>Sign Up</a></button>
+        </mat-list-item>
+        <mat-list-item>
+            <button class="btn" mat-button><a href="/login" class="nav-link" [routerLink]='["login"]'>Login</a></button>
+        </mat-list-item>
+    </mat-list>
+
+    <mat-list *ngIf="isLoggedIn" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-list-item class="nav-item">
+            <button class="btn" mat-button><a href="/profile" class="nav-link" [routerLink]='["profile"]'>{{ username }}</a></button>
+        </mat-list-item>
+        <mat-list-item class="nav-item">
+            <button class="btn" mat-button><a href class="nav-link" (click)="logout()">LogOut</a></button>
+        </mat-list-item>
+    </mat-list>
+</mat-toolbar>
