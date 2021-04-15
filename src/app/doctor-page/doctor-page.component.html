@@ -1,0 +1,11 @@
+<div class="content" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="center center">
+    <div class="image"><img src="{{doctor?.imgurl}}" alt=""></div>
+
+    <div class="description" fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="20px">
+        <p class="name">Greetings! My name is {{doctor?.fullname}}</p>
+        <p class="spec">My specialization is {{doctor?.specialization}}</p>
+        <h2>Briefly about me</h2>
+        <p class="desc">{{doctor?.description}}</p>
+        <button mat-raised-button color="primary" class="btn" (click)="showSchedule()">Apply to a visit</button>
+    </div>
+</div>

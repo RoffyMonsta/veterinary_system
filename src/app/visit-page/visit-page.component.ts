@@ -1,4 +1,7 @@
+import { DoctorService } from './../services/doctor.service';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Doctor } from '../models/doctor.model';
 
 @Component({
   selector: 'app-visit-page',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visit-page.component.scss']
 })
 export class VisitPageComponent implements OnInit {
-
-  constructor() { }
+  allDoctors: Doctor[] = []
+  constructor(public doctorService: DoctorService) { }
 
   ngOnInit(): void {
+    this.fetchAll()
   }
-
+  fetchAll(){
+    this.doctorService.fetchAll().subscribe(data=>{
+      this.allDoctors = this.doctorService.doctors
+    })
+  }
 }

@@ -1,0 +1,14 @@
+<mat-card fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-header fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title>{{doctor.fullname}}</mat-card-title>
+        <mat-card-subtitle>ветеринарний лікар</mat-card-subtitle>
+    </mat-card-header>
+    <img matCardImage src="{{doctor.imgurl}}">
+    <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+        Лікар за спеціальністю: {{doctor.specialization}}
+    </mat-card-content>
+    <mat-card-actions align="start">
+        <button mat-raised-button color="primary" (click)="goToDoctor()">Детальніше</button>
+
+    </mat-card-actions>
+</mat-card>

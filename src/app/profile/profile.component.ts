@@ -22,7 +22,6 @@ export class ProfileComponent implements OnInit {
 fetchData(){
 this.userService.getUser().subscribe(userData=>{
 this.currentUser = this.userService.currentUser
-    console.log(this.currentUser)
     })
 }
 changeData(){
@@ -33,7 +32,6 @@ onSubmit(){
     data=>{
       this.currentUser = this.form
       this.changeUser = false;
-      console.log(data)
       window.location.reload();
       this.fetchData();
     }

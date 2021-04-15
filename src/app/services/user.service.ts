@@ -34,7 +34,6 @@ export class UserService {
     return this.http.get<User>(API_URL + 'user/' + this.token.getUser().id).pipe(
       tap(user=>{
         this.currentUser = user;
-        console.log(this.currentUser)
       })
 
     )

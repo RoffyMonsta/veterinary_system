@@ -25,6 +25,12 @@ import { VisitPageComponent } from './visit-page/visit-page.component';
 import { StoryPageComponent } from './story-page/story-page.component';
 import { AnimalCardComponent } from './animal-card/animal-card.component';
 import {MatIconModule} from '@angular/material/icon';
+import { DoctorCardComponent } from './doctor-card/doctor-card.component';
+import { DoctorPageComponent } from './doctor-page/doctor-page.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
+import {MatSelectModule} from '@angular/material/select';
+import { HistoryCardComponent } from './history-card/history-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +45,11 @@ import {MatIconModule} from '@angular/material/icon';
     VisitPageComponent,
     StoryPageComponent,
     AnimalCardComponent,
+    DoctorCardComponent,
+    DoctorPageComponent,
+    ScheduleComponent,
+    ScheduleFormComponent,
+    HistoryCardComponent,
 
   ],
   imports: [
@@ -54,7 +65,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatListModule,
     MatButtonModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
 
   ],
   providers: [authInterceptorProviders],

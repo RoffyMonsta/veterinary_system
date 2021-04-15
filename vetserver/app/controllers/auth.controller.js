@@ -8,14 +8,24 @@ const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+function makeid(length) {
+    var result = [];
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result.push(characters.charAt(Math.floor(Math.random() *
+            charactersLength)));
+    }
+    return result.join('');
+}
 exports.signup = (req, res) => {
     // Save User to Database
-    const token = jwt.sign({ email: req.body.email }, config.secret);
+
     User.create({
             username: req.body.username,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
-            confirmationCode: token
+            confirmationCode: makeid(20),
         })
         .then(user => {
             if (req.body.roles) {
@@ -109,9 +119,9 @@ exports.signin = (req, res) => {
         });
 };
 exports.verifyUser = (req, res, next) => {
-    console.log('verify with code: ', req.params.confirmationCode)
     User.findOne({
-            confirmationCode: req.params.confirmationCode,
+            where: { confirmationCode: req.params.confirmationCode, }
+
         })
         .then((user) => {
             if (!user) {
@@ -120,9 +130,11 @@ exports.verifyUser = (req, res, next) => {
             user.status = "Active";
             user.save((err) => {
                 if (err) {
+                    console.log(err);
                     res.status(500).send({ message: err });
                     return;
-                }
+                };
+
             });
         })
         .catch((e) => console.log("error", e));

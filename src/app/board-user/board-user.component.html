@@ -4,8 +4,8 @@
         <h2>You have no animals</h2>
     </div>
 
-    <div class="all-animals" fxLayout="row" fxLayoutAlign="flex-start start" fxLayoutGap="10px">
-        <div class="single-animal" *ngFor="let animal of animals">
+    <div class="all-animals" fxLayout="row wrap" fxLayoutAlign="flex-start space-around" fxLayoutGap="10px" fxLayoutAlign.lt-md="center center">
+        <div class="single-animal" *ngFor="let animal of animals" fxFlex="25%" fxFlex.lt-md="80%">
             <app-animal-card [animal]="animal"></app-animal-card>
         </div>
 

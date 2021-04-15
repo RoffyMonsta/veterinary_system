@@ -7,6 +7,8 @@ import { TokenStorageService } from '../services/token-storage.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  mobile: boolean = false
+  showMenu: boolean = false
   private roles: string[];
   isLoggedIn = false;
   showAdminBoard = false;
@@ -14,6 +16,9 @@ export class HeaderComponent implements OnInit {
   username: string;
   constructor(private tokenStorageService: TokenStorageService) { }
   ngOnInit(): void {
+    if (window.screen.width < 960) {
+      this.mobile = true;
+    }
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {

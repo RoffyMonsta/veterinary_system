@@ -1,0 +1,19 @@
+<div class="content" fxLayout="column" fxLayoutAlign="space-around center">
+    <h1>Select day of visit and time</h1>
+    <mat-form-field appearance="fill">
+        <mat-label>Day of visit</mat-label>
+        <mat-select [(value)]="selected">
+            <mat-option *ngFor="let day of days" [value]="day">
+                {{day}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <h2>Current selected day is {{selected}}</h2>
+    <div class="all-buttons" fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <div class="single-button" *ngFor="let button of schedule " fxFlex="32%" [class.invisible]="button.day !== selected">
+            <button class="btn" mat-raised-button [disabled]="button.available? null: true" (click)="onClick(button.id)">{{button.timestamp}}</button>
+
+        </div>
+    </div>
+    <app-schedule-form *ngIf="showForm" [selectedId]="selectedId"></app-schedule-form>
+</div>

@@ -1,9 +1,9 @@
-<mat-card>
+<mat-card fxLayout="column" fxLayoutAlign="center center">
     <mat-card-header fxLayout="column" fxLayoutAlign="center center">
         <mat-card-title>{{animal.name}}</mat-card-title>
     </mat-card-header>
     <img src="{{animal.imgurl}}">
-    <mat-card-content>
+    <mat-card-content fxLayout="column" fxLayoutAlign="center center">
         This is {{animal.name}}. Age is {{animal.age}}
     </mat-card-content>
 </mat-card>

@@ -20,14 +20,12 @@ export class BoardUserComponent implements OnInit {
 fetchData(){
   this.animalService.fetchAll().subscribe(data=>{
     this.animals = this.animalService.animals
-    console.log(this.animals)
   })
 }
 createAnimal(){
   this.animalService.add(this.form).subscribe(data=>{
     this.animals = this.form
     this.addAnimal = false
-    console.log(data)
     window.location.reload();
     this.fetchData();
   })

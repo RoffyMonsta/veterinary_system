@@ -1,6 +1,7 @@
+import { ScheduleComponent } from './schedule/schedule.component';
+import { DoctorPageComponent } from './doctor-page/doctor-page.component';
 import { StoryPageComponent } from './story-page/story-page.component';
 import { VisitPageComponent } from './visit-page/visit-page.component';
-import { AppComponent } from './../../../ngtest/src/app/app.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
@@ -10,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -20,8 +22,9 @@ const routes: Routes = [
   { path: 'doc', component: BoardDoctorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'visit', component: VisitPageComponent },
+  { path: 'visit/:id', component: DoctorPageComponent },
+  { path: 'schedule/:id', component: ScheduleComponent },
   { path: 'story', component: StoryPageComponent },
-  { path: '', component: AppComponent }
 ];
 
 @NgModule({

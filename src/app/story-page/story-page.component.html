@@ -1,1 +1,9 @@
-<p>story-page works!</p>
+<div class="content" fxLayout="column" fxLayoutAlign="space-around center">
+    <h1>Visit history</h1>
+    <h2 *ngIf="!allVisits.length">You have no visits</h2>
+    <div class="all-visits" fxLayout="column-reverse">
+        <div class="one-visit" *ngFor="let visit of allVisits">
+            <app-history-card [visit]="visit"></app-history-card>
+        </div>
+    </div>
+</div>
