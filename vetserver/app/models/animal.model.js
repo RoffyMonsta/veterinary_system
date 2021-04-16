@@ -10,6 +10,18 @@ module.exports = (sequelize, Sequelize) => {
         age: {
             type: Sequelize.INTEGER
         },
+        vaccinated: {
+            type: Sequelize.BOOLEAN
+        },
+        passport: {
+            type: Sequelize.BOOLEAN
+        },
+        kind: {
+            type: Sequelize.STRING
+        },
+        breed: {
+            type: Sequelize.STRING
+        },
     });
 
     return Animal;

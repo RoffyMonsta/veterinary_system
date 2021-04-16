@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
@@ -31,6 +30,10 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
 import {MatSelectModule} from '@angular/material/select';
 import { HistoryCardComponent } from './history-card/history-card.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AnimalPageComponent } from './animal-page/animal-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +53,7 @@ import { HistoryCardComponent } from './history-card/history-card.component';
     ScheduleComponent,
     ScheduleFormComponent,
     HistoryCardComponent,
+    AnimalPageComponent,
 
   ],
   imports: [
@@ -66,7 +70,9 @@ import { HistoryCardComponent } from './history-card/history-card.component';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
 
   ],
   providers: [authInterceptorProviders],

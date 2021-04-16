@@ -1,0 +1,24 @@
+<div class="content" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="center center">
+    <div class="image"><img src="{{animal?.imgurl}}" alt=""></div>
+
+    <div class="description" fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="20px">
+        <h2>Name</h2>
+        <p>{{animal?.name}}</p>
+        <h2>Kind</h2>
+        <p>{{animal?.kind}}</p>
+        <h2>Breed</h2>
+        <p>{{animal?.breed}}</p>
+        <h2>Age</h2>
+        <p>{{animal?.age}}</p>
+        <h2>Vaccinated</h2>
+        <p>
+            <mat-icon [ngStyle]="{'color': 'green'}" *ngIf="animal?.vaccinated">thumb_up</mat-icon>
+            <mat-icon [ngStyle]="{'color': 'red'}" class="mat-18" *ngIf="!animal?.vaccinated">thumb_down</mat-icon>
+        </p>
+        <h2>Passport</h2>
+        <p>
+            <mat-icon [ngStyle]="{'color': 'green'}" *ngIf="animal?.passport">thumb_up</mat-icon>
+            <mat-icon [ngStyle]="{'color': 'red'}" class="mat-18" *ngIf="!animal?.passport">thumb_down</mat-icon>
+        </p>
+    </div>
+</div>

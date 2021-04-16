@@ -3,5 +3,9 @@ export interface Animal{
   userId: number,
   name: string,
   imgurl: string,
-  age: number
+  age: number,
+  vaccinated: boolean,
+  passport: boolean,
+  kind: string,
+  breed: string
 }

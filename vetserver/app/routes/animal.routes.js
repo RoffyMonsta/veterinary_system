@@ -11,5 +11,6 @@ module.exports = function(app) {
     });
 
     app.get("/api/animal", controller.getAnimals);
+    app.get("/api/animal/:id", controller.getAnimalById);
     app.post("/api/animal", controller.addAnimal);
 };

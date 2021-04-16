@@ -12,6 +12,7 @@ const API_URL = 'http://localhost:8080/api/';
 export class AnimalService {
 
   animals: Animal[]
+  oneAnimal: Animal
   userId: number = this.token.getUser().id
   constructor(private http: HttpClient, private token: TokenStorageService) { }
 
@@ -25,12 +26,23 @@ export class AnimalService {
       })
     )
   }
+  fetchById(id: number): Observable<Animal>{
+    return this.http.get<Animal>(API_URL+'animal/'+id, this.httpOptions).pipe(
+      tap(animal=>{
+        this.oneAnimal = animal
+      })
+    )
+  }
   add(animal): Observable<any> {
     return this.http.post(API_URL+'animal', {
       userid: animal.userId,
       name: animal.name,
       imgurl: animal.imgurl,
-      age: animal.age
+      age: animal.age,
+      vaccinated: animal.vaccinated,
+      passport: animal.passport,
+      kind: animal.kind,
+      breed: animal.breed
     },this.httpOptions);
   }
 }

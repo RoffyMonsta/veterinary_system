@@ -6,11 +6,14 @@
 
     <div class="all-animals" fxLayout="row wrap" fxLayoutAlign="flex-start space-around" fxLayoutGap="10px" fxLayoutAlign.lt-md="center center">
         <div class="single-animal" *ngFor="let animal of animals" fxFlex="25%" fxFlex.lt-md="80%">
-            <app-animal-card [animal]="animal"></app-animal-card>
+            <a [routerLink]="[animal.id]">
+                <app-animal-card [animal]="animal"></app-animal-card>
+            </a>
         </div>
 
     </div>
     <div class="add-animal"><button mat-raised-button class="btn" (click)="addAnimal = true">Add animal</button></div>
+
     <mat-card *ngIf="addAnimal" fxLayout="column" fxLayoutAlign="center center">
         <mat-card-title>
             Add animal form
@@ -44,7 +47,47 @@
                 </div>
             </div>
             <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
-                <button mat-raised-button class="btn" color="primary">Confirm changes</button>
+                <label for="vaccinated">Is your animal vaccinated?</label>
+                <div class="radios" fxLayout="row">
+                    <label for="yes">Yes</label>
+                    <input type="radio" class="form-control" name="vaccinated" [(ngModel)]="form.vaccinated" value="true" required #vaccinated="ngModel" />
+                    <label for="no">No</label>
+                    <input type="radio" class="form-control" name="vaccinated" [(ngModel)]="form.vaccinated" value="false" required #vaccinated="ngModel" />
+                </div>
+
+                <div class="alert-danger" *ngIf="f.submitted && vaccinated.invalid">
+                    <div *ngIf="vaccinated.errors.required">Select option!</div>
+                </div>
+            </div>
+            <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
+                <label for="passport">Does your pet have a passport?</label>
+                <div class="radios" fxLayout="row">
+                    <label for="yes">Yes</label>
+                    <input type="radio" class="form-control" name="passport" [(ngModel)]="form.passport" value="true" required #passport="ngModel" />
+                    <label for="no">No</label>
+                    <input type="radio" class="form-control" name="passport" [(ngModel)]="form.passport" value="false" required #passport="ngModel" />
+                </div>
+
+                <div class="alert-danger" *ngIf="f.submitted && passport.invalid">
+                    <div *ngIf="passport.errors.required">Select option!</div>
+                </div>
+            </div>
+            <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
+                <label for="kind">Enter kind</label>
+                <input type="text" class="form-control" name="kind" [(ngModel)]="form.kind" required #kind="ngModel" />
+                <div class="alert-danger" *ngIf="f.submitted && kind.invalid">
+                    <div *ngIf="kind.errors.required">Kind is required</div>
+                </div>
+            </div>
+            <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
+                <label for="breed">Enter breed</label>
+                <input type="text" class="form-control" name="breed" [(ngModel)]="form.breed" required #breed="ngModel" />
+                <div class="alert-danger" *ngIf="f.submitted && breed.invalid">
+                    <div *ngIf="breed.errors.required">Breed is required</div>
+                </div>
+            </div>
+            <div class="form-group " fxLayout="column " fxLayoutAlign="space-between center ">
+                <button mat-raised-button class="btn " color="primary">Confirm changes</button>
             </div>
         </form>
     </mat-card>

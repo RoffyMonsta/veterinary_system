@@ -1,3 +1,4 @@
+import { AnimalPageComponent } from './animal-page/animal-page.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { DoctorPageComponent } from './doctor-page/doctor-page.component';
 import { StoryPageComponent } from './story-page/story-page.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'pets', component: BoardUserComponent },
+  { path: 'pets/:id', component: AnimalPageComponent },
   { path: 'doc', component: BoardDoctorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'visit', component: VisitPageComponent },
