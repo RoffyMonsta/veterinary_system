@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TokenStorageService } from './services/token-storage.service';
+import { TokenStorageService } from './auth/token-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { TokenStorageService } from './services/token-storage.service';
 })
 export class AppComponent {
   title = 'vetcabinet';
-  
+
 
   constructor(private tokenStorageService: TokenStorageService) { }
 

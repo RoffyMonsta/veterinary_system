@@ -8,17 +8,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { BoardDoctorComponent } from './board-doctor/board-doctor.component';
 import { BoardUserComponent } from './board-user/board-user.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-import { RegisterComponent } from './register/register.component';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+  },
+
   { path: 'profile', component: ProfileComponent },
   { path: 'pets', component: BoardUserComponent },
   { path: 'pets/:id', component: AnimalPageComponent },
@@ -28,6 +27,7 @@ const routes: Routes = [
   { path: 'visit/:id', component: DoctorPageComponent },
   { path: 'schedule/:id', component: ScheduleComponent },
   { path: 'story', component: StoryPageComponent },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
 ];
 
 @NgModule({

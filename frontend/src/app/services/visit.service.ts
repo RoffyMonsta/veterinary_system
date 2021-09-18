@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { TokenStorageService } from './token-storage.service';
+import { TokenStorageService } from '../auth/token-storage.service';
 const API_URL = 'http://localhost:8080/api/';
 @Injectable({
   providedIn: 'root'

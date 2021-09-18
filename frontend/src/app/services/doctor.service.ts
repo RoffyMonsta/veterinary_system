@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Animal } from '../models/animal.model';
-import { TokenStorageService } from './token-storage.service';
+import { TokenStorageService } from '../auth/token-storage.service';
 const API_URL = 'http://localhost:8080/api/';
 @Injectable({
   providedIn: 'root'

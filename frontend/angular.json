@@ -13,11 +13,24 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en",
+        "locales": {
+          "ru": {
+            "translation": "src/locales/messages.ru.xlf",
+            "baseHref": "ru/"
+          },
+          "uk": {
+            "translation": "src/locales/messages.uk.xlf",
+            "baseHref": "uk/"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/vetcabinet",
+            "outputPath": "dist/vetcabinet/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -28,10 +41,11 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/assets/styles/main.scss",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["lodash"]
           },
           "configurations": {
             "production": {
@@ -52,15 +66,25 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "40kb",
+                  "maximumError": "60kb"
                 }
-              ]
+              ],
+              "localize": ["en", "ru", "uk"]
+            },
+            "ru": {
+              "localize": ["ru"]
+            },
+            "en": {
+              "localize": ["en"]
+            },
+            "uk": {
+              "localize": ["uk"]
             }
           }
         },
@@ -72,6 +96,15 @@
           "configurations": {
             "production": {
               "browserTarget": "vetcabinet:build:production"
+            },
+            "ru": {
+              "browserTarget": "vetcabinet:build:ru"
+            },
+            "en": {
+              "browserTarget": "vetcabinet:build:en"
+            },
+            "uk": {
+              "browserTarget": "vetcabinet:build:uk"
             }
           }
         },
@@ -93,7 +126,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -123,8 +155,30 @@
               "devServerTarget": "vetcabinet:serve:production"
             }
           }
-        }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/vetcabinet/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true,
+              "localize": ["en", "ru", "uk"]
+            }
+          }
       }
+    }
     }
   },
   "defaultProject": "vetcabinet",

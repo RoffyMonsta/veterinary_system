@@ -4,7 +4,7 @@
             Register form
         </mat-card-title>
         <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
-        <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <div class="form-group" fxLayout="column" fxLayoutAlign="space-between center">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required minlength="3" maxlength="20" #username="ngModel" />
@@ -42,12 +42,12 @@
                 <button mat-raised-button class="btn" color="primary">Sign Up</button>
             </div>
 
-            <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-                Signup failed!<br />{{ errorMessage }}
+            <div class="alert alert-warning" *ngIf="f.submitted && !(loaded$ | async)">
+                Signup failed!<br />{{ error$ | async }}
             </div>
         </form>
 
-        <div class="alert alert-success" *ngIf="isSuccessful">
+        <div class="alert alert-success" *ngIf="loaded$ | async">
             Your registration is successful! Check your email!
         </div>
     </mat-card>

@@ -9,7 +9,7 @@
 
     <mat-list routerLinkActive="active " fxLayout="row " fxLayoutAlign="space-between center " fxLayout.lt-md="column ">
         <mat-list-item fxLayoutAlign="center center ">
-            <button class="btn " mat-button><a href="/home " class="nav-link " [routerLink]='["home"]'>Home</a></button>
+            <button class="btn " mat-button><a class="nav-link " routerLink='/'>Home</a></button>
         </mat-list-item>
         <mat-list-item *ngIf="showAdminBoard " fxLayoutAlign="center center ">
             <button class="btn " mat-button><a href="/admin " class="nav-link " [routerLink]='["admin"]'>Admin Board</a></button>
@@ -30,10 +30,10 @@
 
     <mat-list *ngIf="!isLoggedIn " fxLayout="row " fxLayoutAlign="space-between center " fxLayout.lt-md="column ">
         <mat-list-item fxLayoutAlign="center center ">
-            <button class="btn " mat-button><a href="/register " class="nav-link " [routerLink]='["register"]'>Sign Up</a></button>
+            <button class="btn " mat-button><a class="nav-link " routerLink='/auth/register'>Sign Up</a></button>
         </mat-list-item>
         <mat-list-item fxLayoutAlign="center center ">
-            <button class="btn " mat-button><a href="/login " class="nav-link " [routerLink]='["login"]'>Login</a></button>
+            <button class="btn " mat-button><a class="nav-link " routerLink='/auth/login'>Login</a></button>
         </mat-list-item>
     </mat-list>
 

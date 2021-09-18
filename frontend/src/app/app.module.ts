@@ -5,8 +5,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
@@ -34,11 +32,13 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AnimalPageComponent } from './animal-page/animal-page.component';
+import { NgxsModule } from '@ngxs/store';
+import { AuthState } from './auth/auth.state';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
     ProfileComponent,
     HomeComponent,
     BoardUserComponent,
@@ -73,7 +73,8 @@ import { AnimalPageComponent } from './animal-page/animal-page.component';
     MatSelectModule,
     MatCheckboxModule,
     MatFormFieldModule,
-
+    NgxsModule.forRoot([AuthState]),
+    NgxsRouterPluginModule.forRoot(),
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

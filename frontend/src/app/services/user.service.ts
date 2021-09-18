@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {TokenStorageService} from './token-storage.service';
+import {TokenStorageService} from '../auth/token-storage.service';
 import {User} from './../models/user.model'
 import { tap } from 'rxjs/operators';
 const API_URL = 'http://localhost:8080/api/';
