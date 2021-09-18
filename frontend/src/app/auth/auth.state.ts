@@ -68,7 +68,7 @@ export class AuthState implements NgxsOnInit {
       });
 
       this.tokenService.saveUser(userData);
-      this.tokenService.saveToken(userData.token);
+      this.tokenService.saveToken(userData.accessToken);
       ctx.dispatch(new Navigate(['/pets']));
   }
 
@@ -78,7 +78,7 @@ export class AuthState implements NgxsOnInit {
       ctx.patchState({
         loading: false,
         loaded: false,
-        error: 'User not found'
+        error: err.error.message
       });
   }
 
@@ -97,8 +97,7 @@ export class AuthState implements NgxsOnInit {
 
   @Action(RegisterSuccess)
   registerSuccess(
-    ctx: StateContext<AuthStateModel>, {userData} : RegisterSuccess) {
-      console.log(userData)
+    ctx: StateContext<AuthStateModel>, {success} : RegisterSuccess) {
       ctx.patchState({
         loading: false,
         loaded: true
@@ -112,7 +111,7 @@ export class AuthState implements NgxsOnInit {
       ctx.patchState({
         loading: false,
         loaded: false,
-        error: err.message
+        error: err.error.message
       });
   }
 }

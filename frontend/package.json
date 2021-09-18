@@ -3,14 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json --watch --configuration=en",
+    "start": "ng serve --watch --configuration=en",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "extract-i18n": "ng xi18n --output-path src/locales --ivy && ng run vetcabinet:xliffmerge",
-    "start-ru": "ng serve --proxy-config proxy.conf.json --watch --configuration=ru",
-    "start-uk": "ng serve --proxy-config proxy.conf.json --watch --configuration=uk",
+    "start-ru": "ng serve --watch --configuration=ru",
+    "start-uk": "ng serve --watch --configuration=uk",
     "build:ssr": "ng build --prod && gulp purifyCSS && ng run vetcabinet:server:production && cpx angular.json dist/vetcabinet && cpx proxy.server.js dist/vetcabinet"
   },
   "private": true,

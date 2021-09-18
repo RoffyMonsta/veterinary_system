@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { filter, take } from 'rxjs/operators';
 import { TokenStorageService } from '../auth/token-storage.service';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +17,7 @@ export class HeaderComponent implements OnInit {
   showAdminBoard = false;
   showDoctorBoard = false;
   username: string;
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService, public dialog: MatDialog) { }
   ngOnInit(): void {
     if (window.screen.width < 960) {
       this.mobile = true;
@@ -32,8 +35,23 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.tokenStorageService.signOut();
-    window.location.reload();
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: "400px",
+      data: {
+          title: "Are you sure?",
+          message: "You are about to log out "}
+    });
+
+    // listen to response
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter(result => !!result),
+        take(1)
+      )
+      .subscribe(() => {
+        this.tokenStorageService.signOut();
+      });
   }
 
 }

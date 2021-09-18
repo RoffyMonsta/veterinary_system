@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from "@angular/common/http";
+import { User } from "./auth.model";
 import { LoginData, RegisterData } from "./auth.model";
 
 
@@ -8,7 +9,7 @@ export class Login {
 }
 export class LoginSuccess {
   static type = '[Auth] LoginSuccess';
-  constructor(public userData: any) {}
+  constructor(public userData: User) {}
 }
 
 export class LoginFail {
@@ -22,7 +23,7 @@ export class Register {
 }
 export class RegisterSuccess {
   static type = '[Auth] RegisterSuccess';
-  constructor(public  userData: any) {}
+  constructor(public  success: string) {}
 }
 
 export class RegisterFail {

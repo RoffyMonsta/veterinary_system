@@ -35,7 +35,8 @@ import { AnimalPageComponent } from './animal-page/animal-page.component';
 import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './auth/auth.state';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
-import { environment } from 'src/environments/environment';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import { environment } from 'src/environments/environment';
     ScheduleFormComponent,
     HistoryCardComponent,
     AnimalPageComponent,
+    ConfirmDialogComponent,
 
   ],
   imports: [
@@ -73,8 +75,9 @@ import { environment } from 'src/environments/environment';
     MatSelectModule,
     MatCheckboxModule,
     MatFormFieldModule,
-    NgxsModule.forRoot([AuthState]),
+    NgxsModule.forRoot(),
     NgxsRouterPluginModule.forRoot(),
+    MatDialogModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

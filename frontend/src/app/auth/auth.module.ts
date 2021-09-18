@@ -1,3 +1,4 @@
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
@@ -12,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
+import {MatInputModule} from '@angular/material/input';
 export const AUTH_ROUTES: Routes = [
   {
     path: '',
@@ -46,7 +48,10 @@ export const AUTH_ROUTES: Routes = [
     MatCardModule,
     ReactiveFormsModule,
     FormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule
+
   ],
   providers: [AuthService, TokenStorageService]
 })

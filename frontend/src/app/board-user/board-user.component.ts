@@ -26,7 +26,6 @@ createAnimal(){
   this.animalService.add(this.form).subscribe(data=>{
     this.animals = this.form
     this.addAnimal = false
-    window.location.reload();
     this.fetchData();
   })
 }

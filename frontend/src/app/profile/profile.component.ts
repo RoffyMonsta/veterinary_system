@@ -32,7 +32,6 @@ onSubmit(){
     data=>{
       this.currentUser = this.form
       this.changeUser = false;
-      window.location.reload();
       this.fetchData();
     }
   )

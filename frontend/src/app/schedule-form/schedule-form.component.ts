@@ -32,7 +32,6 @@ export class ScheduleFormComponent implements OnInit {
 
     this.scheduleService.add(this.form.animal,  this.selectedId).subscribe(data=>{
       this.showForm = false
-      setTimeout(()=>{window.location.reload()},1500)
     })
   }
 
