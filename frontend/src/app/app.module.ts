@@ -37,6 +37,9 @@ import { AuthState } from './auth/auth.state';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { MenuComponent } from './header/menu/menu.component';
+import { environment } from 'src/environments/environment';
+import { AuthService } from './auth/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +59,7 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
     HistoryCardComponent,
     AnimalPageComponent,
     ConfirmDialogComponent,
+    MenuComponent,
 
   ],
   imports: [
@@ -75,11 +79,11 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
     MatSelectModule,
     MatCheckboxModule,
     MatFormFieldModule,
-    NgxsModule.forRoot(),
+    NgxsModule.forRoot([AuthState],{ developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),
     MatDialogModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -30,3 +30,6 @@ export class RegisterFail {
   static type = '[Auth] RegisterFail';
   constructor(public err: HttpErrorResponse) {}
 }
+export class Logout {
+  static type = '[Auth] Logout';
+}

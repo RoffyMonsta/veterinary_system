@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { State, NgxsOnInit, Store, Action, StateContext, Selector } from "@ngxs/store";
-import { Login, LoginFail, LoginSuccess, Register, RegisterFail, RegisterSuccess } from "./auth.actions";
+import { Login, LoginFail, LoginSuccess, Logout, Register, RegisterFail, RegisterSuccess } from "./auth.actions";
 import { AuthService } from "./auth.service";
 import { TokenStorageService } from "./token-storage.service";
 import { Navigate } from '@ngxs/router-plugin';
@@ -42,7 +42,20 @@ export class AuthState implements NgxsOnInit {
     return state.loaded;
   };
 
-  ngxsOnInit(){}
+  @Selector()
+  static isAuthenticated(state: AuthStateModel):boolean{
+    console.log(state.user);
+    if(state.user){
+      return true
+    }
+    else return false;
+  }
+
+  ngxsOnInit(ctx: StateContext<AuthStateModel>){
+    ctx.patchState({
+      user: this.tokenService.getUser()
+    });
+  }
 
   @Action(Login)
   login(
@@ -112,6 +125,15 @@ export class AuthState implements NgxsOnInit {
         loading: false,
         loaded: false,
         error: err.error.message
+      });
+  }
+
+  @Action(Logout)
+  logout(
+    ctx: StateContext<AuthStateModel>, {err} : LoginFail) {
+      this.tokenService.signOut();
+      ctx.patchState({
+        user: null
       });
   }
 }

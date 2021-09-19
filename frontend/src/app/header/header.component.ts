@@ -1,38 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
+import { Logout } from '../auth/auth.actions';
+import { AuthState } from '../auth/auth.state';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
-  mobile: boolean = false
-  showMenu: boolean = false
-  private roles: string[];
-  isLoggedIn = false;
-  showAdminBoard = false;
-  showDoctorBoard = false;
+
+  @Select(AuthState.isAuthenticated) isAuth$: Observable<boolean>;
   username: string;
-  constructor(private tokenStorageService: TokenStorageService, public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private store: Store) { }
   ngOnInit(): void {
-    if (window.screen.width < 960) {
-      this.mobile = true;
-    }
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
-
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showDoctorBoard = this.roles.includes('ROLE_MODERATOR');
-
-      this.username = user.username;
-    }
   }
+
+
 
   logout(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -50,7 +40,7 @@ export class HeaderComponent implements OnInit {
         take(1)
       )
       .subscribe(() => {
-        this.tokenStorageService.signOut();
+        this.store.dispatch(new Logout());
       });
   }
 
