@@ -1,0 +1,7 @@
+{
+  "name": "vetsym",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

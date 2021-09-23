@@ -1,0 +1,40 @@
+<div class="container">
+    <mat-card class="auth-card">
+        <mat-card-title>
+            Sign in
+        </mat-card-title>
+        <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+        <form name="form" [formGroup]="form" class="form">
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput [formControl]="emailFormControl" formControlName="email"  placeholder="Email">
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput [formControl]="passwordFormControl" formControlName="password" placeholder="Password">
+            <mat-error *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
+              Password should be longer than 6 characters
+            </mat-error>
+            <mat-error *ngIf="passwordFormControl.hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+            <div class="form-group">
+                <button class="btn btn_primary" (click)="onSubmit()">
+          Login
+        </button>
+            </div>
+        </form>
+        <ng-container *ngIf="!(loaded$ | async) && form.status === 'VALID'">
+          <mat-error *ngIf="error$ | async as error">
+            {{error}}
+          </mat-error>
+        </ng-container>
+    </mat-card>
+</div>
