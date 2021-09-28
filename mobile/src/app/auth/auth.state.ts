@@ -1,16 +1,29 @@
+import { UpdateData, User } from './auth.model';
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Injectable } from '@angular/core';
 import { State, NgxsOnInit, Store, Action, StateContext, Selector } from '@ngxs/store';
-import { Login, LoginFail, LoginSuccess, Logout, Register, RegisterFail, RegisterSuccess } from './auth.actions';
+import {
+  Login,
+  LoginFail,
+  LoginSuccess,
+  Logout,
+  Register,
+  RegisterFail,
+  RegisterSuccess,
+  UpdateUser,
+  UpdateUserFail,
+  UpdateUserSuccess
+} from './auth.actions';
 import { AuthService } from './auth.service';
 import { TokenStorageService } from './token-storage.service';
 import { Navigate } from '@ngxs/router-plugin';
+import { UserService } from './user-service.service';
 
 export class AuthStateModel {
   loading: boolean;
   loaded: boolean;
   error: string;
-  user: any;
+  user: User;
 }
 
 @State<AuthStateModel>({
@@ -26,7 +39,8 @@ export class AuthStateModel {
 export class AuthState implements NgxsOnInit {
   constructor(
     private auth: AuthService,
-    private tokenService: TokenStorageService
+    private tokenService: TokenStorageService,
+    private userService: UserService
   ) {}
   @Selector()
   static error(state: AuthStateModel): string{
@@ -34,10 +48,15 @@ export class AuthState implements NgxsOnInit {
   };
 
   @Selector()
-  static user(state: AuthStateModel): any{
+  static user(state: AuthStateModel): User{
+    console.log(state.user);
     return state.user;
   };
 
+  @Selector()
+  static userId(state: AuthStateModel): number{
+    return state.user.id;
+  }
   @Selector()
   static isLoaded(state: AuthStateModel): boolean{
     return state.loaded;
@@ -45,7 +64,6 @@ export class AuthState implements NgxsOnInit {
 
   @Selector()
   static isAuthenticated(state: AuthStateModel): boolean{
-    console.log(state.user);
     if(state.user){
       return true;
     }
@@ -85,7 +103,7 @@ export class AuthState implements NgxsOnInit {
 
       this.tokenService.saveUser(userData);
       this.tokenService.saveToken(userData.accessToken);
-      ctx.dispatch(new Navigate(['/pets']));
+      ctx.dispatch(new Navigate(['/tabs']));
   }
 
   @Action(LoginFail)
@@ -118,7 +136,7 @@ export class AuthState implements NgxsOnInit {
         loading: false,
         loaded: true
       });
-      ctx.dispatch(new Navigate(['/auth/login']));
+      ctx.dispatch(new Navigate(['/tabs/auth/login']));
   }
 
   @Action(RegisterFail)
@@ -138,6 +156,46 @@ export class AuthState implements NgxsOnInit {
       ctx.patchState({
         user: null
       });
+      ctx.dispatch(new Navigate(['/tabs/auth/login']));
   }
+  @Action(UpdateUser)
+  updateUser(
+    ctx: StateContext<AuthStateModel>, {credentials}: UpdateUser) {
+    ctx.patchState({
+      loading: true,
+      loaded: false
+    });
+    this.userService.updateUser(credentials).subscribe(
+      userData => ctx.dispatch(new UpdateUserSuccess(credentials)),
+      err => ctx.dispatch(new LoginFail(err))
+    );
+  }
+
+  @Action(UpdateUserSuccess)
+  updateUserSuccess(
+    ctx: StateContext<AuthStateModel>, {userData}: UpdateUserSuccess) {
+      console.log(userData);
+      const state = ctx.getState();
+      const user = {...state.user};
+      user.imgurl = userData.imgurl;
+      user.fullname = userData.fullname;
+      ctx.patchState({
+        loading: false,
+        loaded: true,
+        user
+      });
+      this.tokenService.saveUser(user);
+  }
+
+  @Action(UpdateUserFail)
+  updateUserFail(
+    ctx: StateContext<AuthStateModel>, {err}: UpdateUserFail) {
+      ctx.patchState({
+        loading: false,
+        loaded: false,
+        error: err.error.message
+      });
+  }
+
 }
 

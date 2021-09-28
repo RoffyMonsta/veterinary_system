@@ -9,11 +9,18 @@ export interface LoginData {
   password: string;
 }
 
+export interface UpdateData {
+  fullname: string;
+  imgurl: string;
+}
+
 export interface User {
   username: string;
-  id?: number;
+  id: number;
   email: number;
   accessToken: string;
   roles: string[];
   status: string;
+  imgurl?: string;
+  fullname?: string;
 }

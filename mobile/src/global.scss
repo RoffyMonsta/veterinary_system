@@ -24,3 +24,86 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+.btn {
+  cursor: pointer;
+  padding: 9px;
+  border-radius: 35px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  width: 135px;
+  height: 40px;
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  &_white{
+    background: #FFFFFF;
+    color: #EE9E56;
+    &_hover,
+    &:hover {
+      background: #EE9E56;
+      border: 2px solid #FFFFFF;
+      color: #FFFFFF;
+    }
+    &_checked {
+      background: #EE9E56;
+      border: 2px solid #FFFFFF;
+      color: #FFFFFF;
+    }
+    &_disabled {
+        background: #e6ecf7;
+        color: #b8bec2;
+    }
+    &_disabled:hover {
+        background: #e6ecf7;
+    }
+  }
+  &_primary{
+    background:  #EE9E56;
+    color: #FFFFFF;
+    &_hover,
+    &:hover {
+      background: #2C4F3E;
+      border: 2px solid #EE9E56;
+      color: #EE9E56;
+    }
+    &_checked {
+      background: #2C4F3E;
+      border: 2px solid #EE9E56;
+      color: #EE9E56;
+    }
+    &_disabled {
+        background: #e6ecf7;
+        color: #b8bec2;
+    }
+    &_disabled:hover {
+        background: #e6ecf7;
+    }
+  }
+  &_secondary{
+    background:  #2C4F3E;
+    color: #FFFFFF;
+    &_hover,
+    &:hover {
+      background: #EE9E56;
+      border: 2px solid #2C4F3E;
+      color: #2C4F3E;
+    }
+    &_checked {
+      background: #EE9E56;
+      border: 2px solid #2C4F3E;
+      color: #2C4F3E;
+    }
+    &_disabled {
+        background: #e6ecf7;
+        color: #b8bec2;
+    }
+    &_disabled:hover {
+        background: #e6ecf7;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Your animals
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="main-content">
+    <ng-container *ngIf="isAuth$ | async else notAuth">
+      <ng-container *ngIf="animals$ | async as animals" class="animals">
+        <ng-container *ngIf="animals.length; else noAnimals">
+          <div class="animals__single" *ngFor="let animal of animals">
+            <app-animal-card [animal]="animal"></app-animal-card>
+            </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+    <ng-template #noAnimals>
+      <span class="not-auth">
+        Sorry you don't have any animals. Try to <a routerLink="create">create one</a>
+      </span>
+    </ng-template>
+
+
+    <ng-template #notAuth>
+      <span class="not-auth">
+        Sorry you have to <a routerLink="/tabs/auth/login">Log in</a>
+      </span>
+    </ng-template>
+  </div>
+</ion-content>
+<ion-button expand="full" class="new-animal" routerLink="create" *ngIf="isAuth$ | async">Add new animal</ion-button>

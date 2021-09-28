@@ -1,40 +1,50 @@
-<div class="container">
-    <mat-card class="auth-card">
-        <mat-card-title>
-            Sign in
-        </mat-card-title>
-        <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-        <form name="form" [formGroup]="form" class="form">
-          <mat-form-field class="form-field" appearance="fill">
-            <mat-label>Email</mat-label>
-            <input type="email" matInput [formControl]="emailFormControl" formControlName="email"  placeholder="Email">
-            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-              Please enter a valid email address
-            </mat-error>
-            <mat-error *ngIf="emailFormControl.hasError('required')">
-              Email is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="form-field" appearance="fill">
-            <mat-label>Password</mat-label>
-            <input type="password" matInput [formControl]="passwordFormControl" formControlName="password" placeholder="Password">
-            <mat-error *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
-              Password should be longer than 6 characters
-            </mat-error>
-            <mat-error *ngIf="passwordFormControl.hasError('required')">
-              Password is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-            <div class="form-group">
-                <button class="btn btn_primary" (click)="onSubmit()">
-          Login
-        </button>
-            </div>
-        </form>
-        <ng-container *ngIf="!(loaded$ | async) && form.status === 'VALID'">
-          <mat-error *ngIf="error$ | async as error">
-            {{error}}
-          </mat-error>
-        </ng-container>
-    </mat-card>
-</div>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Sign in
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="main-content">
+    <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+  <form name="form" [formGroup]="form" class="form">
+    <ion-item class="form-field">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" [formControl]="emailFormControl" formControlName="email" placeholder="Email"></ion-input>
+    </ion-item>
+      <div class="error" *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        Please enter a valid email address
+      </div>
+      <div class="error" *ngIf="emailFormControl.hasError('required') && emailFormControl.touched">
+        Email is <strong>required</strong>
+      </div>
+    <ion-item class="form-field">
+      <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" matInput [formControl]="passwordFormControl" formControlName="password" placeholder="Password"></ion-input>
+    </ion-item>
+      <div class="error" *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
+        Password should be longer than 6 characters
+      </div>
+      <div class="error" *ngIf="passwordFormControl.hasError('required')  && passwordFormControl.touched">
+        Password is <strong>required</strong>
+      </div>
+      <div class="form-group">
+          <button class="btn btn_primary" (click)="onSubmit()">
+    Login
+  </button>
+      </div>
+      <div *ngIf="(loaded$ | async) !== true && form.status === 'VALID'">
+        <div *ngIf="error$ | async as error">
+          {{error}}
+        </div>
+      </div>
+  </form>
+  <span class="text-link">Don't have an account? <a routerLink="/tabs/auth/register">Register</a></span>
+  </div>
+
+</ion-content>
+
+
+

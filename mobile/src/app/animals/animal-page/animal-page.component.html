@@ -1,0 +1,11 @@
+<ng-container *ngIf="animal$ | async as animal">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/animals"></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{animal.name}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ng-container>
+

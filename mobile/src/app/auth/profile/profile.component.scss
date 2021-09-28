@@ -1,4 +1,6 @@
-
+.error{
+  color: red;
+}
 .form{
   display: flex;
   flex-direction: column;
@@ -15,9 +17,21 @@
   margin-top: 20px;
   padding: 8px;
 }
-.error{
-  color: red;
+.title-text{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
-.text-link{
-  margin-top: 20px;
+
+.user{
+  &__pic{
+    width: 200px;
+    height: 100%;
+  }
+  &__icon{
+    width: 200px;
+    height: 100%;
+  }
 }

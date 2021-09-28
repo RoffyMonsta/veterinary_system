@@ -33,10 +33,11 @@ export class RegisterComponent implements OnInit {
       email: this.emailFormControl,
       password: this.passwordFormControl,
       username: this.userNameFormControl
-    })
+    });
   }
 
   onSubmit(): void {
+    this.form.markAllAsTouched();
     if(this.form.valid){
       this.store.dispatch(new Register(this.form.value));
     }

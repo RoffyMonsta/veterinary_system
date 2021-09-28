@@ -1,0 +1,17 @@
+.main-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 20px;
+  padding: 8px;
+}
+
+.new-animal::part(native){
+  background: orange;
+}
+.animals{
+  &__single{
+    width: 100%;
+  }
+}

@@ -6,14 +6,20 @@
       <ion-label>Tab 1</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab2">
-      <ion-icon name="ellipse"></ion-icon>
-      <ion-label>Tab 2</ion-label>
+    <ion-tab-button tab="animals">
+      <ion-icon name="logo-octocat"></ion-icon>
+      <ion-label>Your animals</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="auth">
-      <ion-icon name="square"></ion-icon>
-      <ion-label>Tab 3</ion-label>
+    <ion-tab-button tab="auth/profile" *ngIf="isAuth$ | async">
+      <ion-icon name="person-circle-outline" *ngIf="!((user$ | async).imgurl)"></ion-icon>
+      <img [src]="(user$ | async).imgurl" alt="" *ngIf="(user$ | async).imgurl" class="user-pic">
+      <ion-label >My profile</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="auth/login" *ngIf="(isAuth$ | async) === false">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-label >Sign in</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 

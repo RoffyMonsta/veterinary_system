@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <span class="title-text">Your profile <ion-icon name="log-out-outline" (click)="logout()"></ion-icon></span>
+
+    </ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="main-content" *ngIf="user$ | async as user">
+    <img src="{{user.imgurl}}" alt="" *ngIf="user.imgurl" class="user__pic">
+    <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" *ngIf="!user.imgurl" class="user__icon">
+  <form name="form" [formGroup]="form" class="form">
+    <ion-item class="form-field">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" disabled [value]="user.email"></ion-input>
+    </ion-item>
+    <ion-item class="form-field">
+      <ion-label position="floating">Full name</ion-label>
+        <ion-input type="text" formControlName="fullname" [value]="user.fullname" [disabled]="!changeUser"></ion-input>
+    </ion-item>
+      <div class="error" *ngIf="this.form.get('fullname').hasError('required')  && this.form.get('fullname').touched">
+        Username is <strong>required</strong>
+      </div>
+      <ion-item class="form-field">
+        <ion-label position="floating">Avatar</ion-label>
+          <ion-input type="text" formControlName="imgurl" [value]="user.imgurl" [disabled]="!changeUser"></ion-input>
+      </ion-item>
+        <div class="error" *ngIf="this.form.get('imgurl').hasError('required')  && this.form.get('imgurl').touched">
+          Username is <strong>required</strong>
+        </div>
+      <div class="form-group">
+        <button class="btn btn_primary" (click)="changeData()" *ngIf="!changeUser">
+          Edit
+        </button>
+          <button class="btn btn_primary" (click)="onSubmit()" *ngIf="changeUser">
+            Submit
+          </button>
+      </div>
+  </form>
+  </div>
+
+</ion-content>
+
+
+

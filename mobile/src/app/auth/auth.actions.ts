@@ -1,6 +1,6 @@
-import { HttpErrorResponse } from "@angular/common/http";
-import { User } from "./auth.model";
-import { LoginData, RegisterData } from "./auth.model";
+import { HttpErrorResponse } from '@angular/common/http';
+import { UpdateData, User } from './auth.model';
+import { LoginData, RegisterData } from './auth.model';
 
 
 export class Login {
@@ -32,4 +32,18 @@ export class RegisterFail {
 }
 export class Logout {
   static type = '[Auth] Logout';
+}
+
+export class UpdateUser {
+  static type = '[Auth] UpdateUser';
+  constructor(public credentials: UpdateData) {}
+}
+export class UpdateUserSuccess {
+  static type = '[Auth] UpdateUserSuccess';
+  constructor(public userData: UpdateData) {}
+}
+
+export class UpdateUserFail {
+  static type = '[Auth] UpdateUserFail';
+  constructor(public err: HttpErrorResponse) {}
 }

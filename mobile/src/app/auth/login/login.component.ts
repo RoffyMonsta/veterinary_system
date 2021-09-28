@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.form);
+    this.form.markAllAsTouched();
     if(this.form.valid){
       this.store.dispatch(new Login(this.form.value));
     }
