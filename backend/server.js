@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-    origin: "http://localhost:4200"
+    origin: "http://localhost:8100"
 };
 
 app.use(cors(corsOptions));
@@ -24,12 +24,12 @@ const Doctor = db.doctor;
 const Animal = db.animal;
 const Timestamp = db.timestamp;
 const Schedule = db.schedule;
-//db.sequelize.sync();
+db.sequelize.sync();
 // force: true will drop the table if it already exists
-db.sequelize.sync({ force: true }).then(() => {
-    console.log('Drop and Resync Database with { force: true }');
-    initial();
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//     console.log('Drop and Resync Database with { force: true }');
+//     initial();
+// });
 
 // simple route
 app.get("/", (req, res) => {

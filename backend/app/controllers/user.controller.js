@@ -24,16 +24,16 @@ exports.doctorBoard = (req, res) => {
     res.status(200).send("Doctor Content.");
 };
 exports.updateUser = (request, response) => {
-    const id = parseInt(request.params.id)
-    const { fullname, imgurl } = request.body
-
+    const id = parseInt(request.params.id);
+    const { fullname, imgurl } = request.body;
+    console.log(imgurl);
     pool.query(
         'UPDATE users SET fullname = $1, imgurl = $2 WHERE id = $3', [fullname, imgurl, id],
         (error, results) => {
             if (error) {
                 throw error
             }
-            response.status(200).json("User modified");
+            response.status(200).json(results.rows);
         }
     )
 };

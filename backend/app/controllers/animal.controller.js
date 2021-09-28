@@ -28,18 +28,32 @@ exports.getAnimalById = (request, response) => {
         response.status(200).json(results.rows)
     })
 };
-exports.addAnimal = (req, res) => {
-    const userId = parseInt(req.get('userid'));
+exports.deleteAnimal = (request, response) => {
+    const id = parseInt(request.params.id);
+    const userId = parseInt(request.get('userid'));
+    pool.query('DELETE FROM animals WHERE userid = $1 AND id = $2', [userId, id], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json('Animal removed')
+    })
+};
+exports.addAnimal = (request, response) => {
+    const userId = parseInt(request.get('userid'));
 
     Animal.create({
-        name: req.body.name,
-        imgurl: req.body.imgurl,
-        age: req.body.age,
+        name: request.body.name,
+        imgurl: request.body.imgurl,
+        age: request.body.age,
         userid: userId,
-        vaccinated: req.body.vaccinated,
-        passport: req.body.passport,
-        kind: req.body.kind,
-        breed: req.body.breed
+        vaccinated: request.body.vaccinated,
+        passport: request.body.passport,
+        kind: request.body.kind,
+        breed: request.body.breed
 
-    }).then(res.status(200).json('new animal added'))
+    }).then((animal)=>{
+        response.status(200).send(animal);
+    });
 };
+
+

@@ -110,7 +110,9 @@ exports.signin = (req, res) => {
                     email: user.email,
                     roles: authorities,
                     accessToken: token,
-                    status: user.status
+                    status: user.status,
+                    imgurl: user.imgurl,
+                    fullname: user.fullname
                 });
             });
         })
