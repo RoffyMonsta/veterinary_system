@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BASE_URL } from 'src/conf/settings';
+import { BASE_URL } from '../../conf/settings';
 import { User } from './auth.model';
 
 

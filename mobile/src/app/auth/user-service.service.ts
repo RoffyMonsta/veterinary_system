@@ -8,7 +8,6 @@ import { BASE_URL } from 'src/conf/settings';
 export class UserService {
   constructor(private http: HttpClient, private token: TokenStorageService) { }
   updateUser(credentials): Observable<any> {
-    console.log(credentials);
     return this.http.put(BASE_URL + '/api/user/' + this.token.getUser().id, {
       imgurl: credentials.imgurl,
       fullname: credentials.fullname

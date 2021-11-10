@@ -15,7 +15,10 @@ import { AuthService } from './auth/auth.service';
 import { UserService } from './auth/user-service.service';
 import { AnimalState } from './animals/animal.state';
 import { AnimalService } from './animals/animal.service';
-
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { SymptomService } from './symptom/symptom.service';
+import { SymptomState } from './symptom/symptom.state';
+import { IonicSelectableModule } from 'ionic-selectable';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -26,10 +29,16 @@ import { AnimalService } from './animals/animal.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxsModule.forRoot([AuthState, AnimalState],{ developmentMode: !environment.production }),
+    NgxsModule.forRoot([AuthState, AnimalState, SymptomState],{ developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),
+    IonicSelectableModule
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, UserService, AnimalService],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AuthService,
+    UserService,
+    AnimalService,
+    Geolocation,
+    SymptomService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

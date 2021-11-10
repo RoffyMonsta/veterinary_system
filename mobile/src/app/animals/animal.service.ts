@@ -5,7 +5,7 @@ import { Animal } from './animal.model';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { Select } from '@ngxs/store';
 import { AuthState } from '../auth/auth.state';
-const API_URL = 'http://localhost:8080/api/';
+import { BASE_URL } from '../../conf/settings';
 
 @Injectable()
 export class AnimalService implements OnDestroy {
@@ -28,19 +28,19 @@ export class AnimalService implements OnDestroy {
 
 
   fetchAll(): Observable<Animal[]>{
-    return this.http.get<Animal[]>(API_URL+'animal', {
+    return this.http.get<Animal[]>(BASE_URL+'/api/animal', {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       headers: new HttpHeaders({ 'Content-Type': 'application/json' , userid: this.userId.toString()})
     });
   }
   fetchById(id: number): Observable<Animal>{
-    return this.http.get<Animal>(API_URL+'animal/'+id, {
+    return this.http.get<Animal>(BASE_URL+'/api/animal/'+id, {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       headers: new HttpHeaders({ 'Content-Type': 'application/json' , userid: this.userId.toString()})
     });
   }
   addAnimal(animal): Observable<any> {
-    return this.http.post(API_URL+'animal', {
+    return this.http.post(BASE_URL+'/api/animal', {
       userid: animal.userId,
       name: animal.name,
       imgurl: animal.imgurl,
@@ -56,7 +56,7 @@ export class AnimalService implements OnDestroy {
   }
 
   delete(id: number): Observable<Animal>{
-    return this.http.delete<Animal>(API_URL+'animal/'+id, {
+    return this.http.delete<Animal>(BASE_URL+'/api/animal/'+id, {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       headers: new HttpHeaders({ 'Content-Type': 'application/json' , userid: this.userId.toString()})
     });

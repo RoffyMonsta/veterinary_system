@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Select } from '@ngxs/store';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { DeleteAnimal, SelectAnimal } from '../animal.actions';
 import { Animal } from '../animal.model';
 import { AnimalState } from '../animal.state';
 
@@ -12,8 +14,11 @@ import { AnimalState } from '../animal.state';
 })
 export class AnimalPageComponent implements OnInit {
   @Select (AnimalState.currentAnimal) animal$: Observable<Animal>;
-  constructor() { }
+  constructor(private router: Router, private store: Store) { }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+  }
+  deleteAnimal(animalId: number){
+    this.store.dispatch(new DeleteAnimal(animalId));
+  }
 }

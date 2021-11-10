@@ -7,5 +7,42 @@
       <ion-title>{{animal.name}}</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-content [fullscreen]="true">
+    <div class="main-content">
+      <div class="img">
+        <img *ngIf="!animal.imgurl" src="assets/icon/{{animal.kind.toLowerCase()}}.png" alt="icon" class="animal__icon" >
+      <img [src]="animal.imgurl" alt="icon" class="animal__pic" *ngIf="animal.imgurl">
+      </div>
+      <ion-list>
+        <ion-item>
+          <ion-label>Name: {{animal.name}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Age: {{animal.age}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Kind: {{animal.kind}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Breed: {{animal.kind}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Is vaccinated?:
+             <span *ngIf="animal.vaccinated">Yes</span>
+             <span *ngIf="!animal.vaccinated">No</span>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Have password?:
+             <span *ngIf="animal.passport">Yes</span>
+             <span *ngIf="!animal.passport">No</span>
+            </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+    <ion-button expand="full" color="danger" routerLink="/tabs/animals" (click)="deleteAnimal(animal.id)">Delete animal</ion-button>
+  </ion-content>
 </ng-container>
 

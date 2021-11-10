@@ -33,7 +33,7 @@ export class AnimalStateModel {
     loading: false,
     loaded: false,
     error: null,
-    animals: null,
+    animals: [],
     selectedId: null
   },
 })
@@ -50,7 +50,6 @@ export class AnimalState implements NgxsOnInit {
 
   @Selector()
   static animals(state: AnimalStateModel): Animal[]{
-    console.log(state.animals);
     return state.animals;
   };
 
@@ -114,12 +113,9 @@ ngxsOnInit(){}
   getAnimalSuccess(
     ctx: StateContext<AnimalStateModel>, {animal}: GetAnimalSuccess) {
       const state = ctx.getState();
-      const animals = [...state.animals];
-      animals[animal.id] = animal;
       ctx.patchState({
         loading: false,
         loaded: true,
-        animals
       });
   }
 
@@ -152,7 +148,6 @@ ngxsOnInit(){}
   @Action(AddAnimalSuccess)
   addAnimalSuccess(
     ctx: StateContext<AnimalStateModel>, {animal}: AddAnimalSuccess) {
-      console.log(animal);
       const state = ctx.getState();
       const tmpAnimals = [...state.animals];
       tmpAnimals.push(animal);
@@ -182,6 +177,7 @@ ngxsOnInit(){}
         loaded: false,
         selectedId: animalId
       });
+      ctx.dispatch(new GetAnimal(animalId));
   }
 
   @Action(DeleteAnimal)

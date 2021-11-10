@@ -1,0 +1,112 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Welcome to VetSym
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ng-container *ngIf="(clinicsToShow$ | async).length; else findWindow">
+    <ng-container *ngIf="(clinicsToShow$ | async) as clinics">
+      <div class="clinic" *ngFor="let clinic of clinics">
+        <app-clinic-card [clinic] = "clinic"></app-clinic-card>
+      </div>
+
+    </ng-container>
+
+  </ng-container>
+  <ng-template #findWindow>
+    <div class="symptoms__select">
+      <h1 class="title">Select symptoms</h1>
+      <ion-list>
+        <ion-item *ngIf="symptoms$ | async as symptoms">
+          <ion-label>Select symptoms</ion-label>
+          <ionic-selectable
+            [(ngModel)]="selectedSymptoms"
+            [items]="symptoms"
+            [canSearch]="true"
+            [isMultiple]="true"
+            >
+            <ng-template ionicSelectableValueTemplate>
+            </ng-template>
+          </ionic-selectable>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="symptoms__selected" *ngIf="selectedSymptoms">
+      <ion-chip *ngFor="let symptom of selectedSymptoms">
+        <ion-label>{{symptom}}</ion-label>
+        <ion-icon name="close-circle" (click)="removeSymptom(symptom)"></ion-icon>
+      </ion-chip>
+    </div>
+    <ion-text color="danger" *ngIf="error$ | async as error">{{error}}</ion-text>
+    <ng-container *ngIf="(isAuth$ | async) && (animals$ | async).length ; else notAuth">
+      <ng-container *ngIf="(animals$ | async) as animals">
+        <h1 class="title">Select animal</h1>
+        <form name="form2" [formGroup]="form2" class="form">
+          <ion-item>
+            <ion-label>Select animal</ion-label>
+            <ion-select placeholder="Select animal" [formControl]="animalFormControl" formControlName="animal">
+              <ion-select-option *ngFor="let animal of animals" [value]="animal">
+                {{animal.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-text color="danger" *ngIf="animalFormControl.hasError('required') && animalFormControl.touched">
+            Animal info is <strong>required</strong>
+          </ion-text>
+        </form>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #notAuth class="add-info">
+      <h1 class="title">Add animal</h1>
+      <form name="form" [formGroup]="form" class="form">
+        <ion-list>
+          <ion-item class="form-field">
+            <ion-label position="floating">Age</ion-label>
+            <ion-input type="number" [formControl]="ageFormControl" formControlName="age" placeholder="Age"></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="ageFormControl.hasError('required') && ageFormControl.touched">
+            Age is <strong>required</strong>
+          </ion-text>
+          <ion-item class="form-field">
+            <ion-label>Is vaccinated?</ion-label>
+            <ion-select placeholder="Is vaccinated?" [formControl]="vaccinatedFormControl" formControlName="vaccinated">
+              <ion-select-option [value]="true">Yes</ion-select-option>
+              <ion-select-option [value]="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-text color="danger" *ngIf="vaccinatedFormControl.hasError('required') && vaccinatedFormControl.touched">
+            Vaccine info is <strong>required</strong>
+          </ion-text>
+          <ion-item class="form-field">
+            <ion-label>Has passport?</ion-label>
+            <ion-select placeholder="Has passport?" [formControl]="passportFormControl" formControlName="passport">
+              <ion-select-option [value]="true">Yes</ion-select-option>
+              <ion-select-option [value]="false">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-text color="danger" *ngIf="passportFormControl.hasError('required') && passportFormControl.touched">
+            Vaccine info is <strong>required</strong>
+          </ion-text>
+          <ion-item class="form-field">
+            <ion-label>Kind</ion-label>
+            <ion-select placeholder="Kind of animal?" [formControl]="kindFormControl" formControlName="kind">
+              <ion-select-option value="Dog">Dog</ion-select-option>
+              <ion-select-option value="Cat">Cat</ion-select-option>
+              <ion-select-option value="Hamster">Hamster</ion-select-option>
+              <ion-select-option value="Rabbit">Rabbit</ion-select-option>
+              <ion-select-option value="Parrot">Parrot</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-text color="danger" *ngIf="kindFormControl.hasError('required') && kindFormControl.touched">
+              Name is <strong>required</strong>
+          </ion-text>
+        </ion-list>
+      </form>
+    </ng-template>
+  </ng-template>
+</ion-content>
+<ion-button expand="full" class="search" (click)="searchForSymptoms()" type="submit" *ngIf="!(clinicsToShow$ | async).length" >Find Clinics</ion-button>
+<ion-button expand="full" class="search" (click)="cleanClinics()"  *ngIf="(clinicsToShow$ | async).length">Search again</ion-button>

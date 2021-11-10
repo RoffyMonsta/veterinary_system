@@ -1,0 +1,17 @@
+
+
+  <ion-card *ngIf="clinic" class="clinic">
+    <ion-avatar>
+      <img *ngIf="!clinic.pic" src="assets/icon/clinic.png" alt="icon" class="clinic__icon" >
+      <img [src]="clinic.pic" alt="icon" class="clinic__pic" *ngIf="clinic.pic">
+    </ion-avatar>
+    <div>
+      <ion-card-header>
+        <ion-card-title>
+          {{clinic.name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf="clinic?.distance">
+        This clinic is {{clinic?.distance | number}} km from you
+      </ion-card-content>
+    </div>
+  </ion-card>

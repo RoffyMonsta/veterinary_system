@@ -13,41 +13,41 @@
       <ion-label position="floating">Username</ion-label>
       <ion-input type="text" [formControl]="userNameFormControl" formControlName="username" placeholder="Username"></ion-input>
     </ion-item>
-    <div class="error" *ngIf="userNameFormControl.hasError('minlength') && !userNameFormControl.hasError('required')">
+    <ion-text color="danger" *ngIf="userNameFormControl.hasError('minlength') && !userNameFormControl.hasError('required')">
       Username should be longer than 3 characters
-    </div>
-    <div class="error" *ngIf="userNameFormControl.hasError('required')  && userNameFormControl.touched">
+    </ion-text>
+    <ion-text color="danger" *ngIf="userNameFormControl.hasError('required')  && userNameFormControl.touched">
       Username is <strong>required</strong>
-    </div>
+    </ion-text>
     <ion-item class="form-field">
       <ion-label position="floating">Email</ion-label>
       <ion-input type="email" [formControl]="emailFormControl" formControlName="email" placeholder="Email"></ion-input>
     </ion-item>
-    <div class="error" *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+    <ion-text color="danger" *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
       Please enter a valid email address
-    </div>
-    <div class="error" *ngIf="emailFormControl.hasError('required')  && emailFormControl.touched">
+    </ion-text>
+    <ion-text color="danger" *ngIf="emailFormControl.hasError('required')  && emailFormControl.touched">
       Email is <strong>required</strong>
-    </div>
+    </ion-text>
     <ion-item class="form-field">
       <ion-label position="floating">Password</ion-label>
         <ion-input type="password" [formControl]="passwordFormControl" formControlName="password" placeholder="Password"></ion-input>
     </ion-item>
-    <div class="error" *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
+    <ion-text color="danger" *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
       Password should be longer than 6 characters
-    </div>
-    <div class="error" *ngIf="passwordFormControl.hasError('required')  && passwordFormControl.touched">
+    </ion-text>
+    <ion-text color="danger" *ngIf="passwordFormControl.hasError('required')  && passwordFormControl.touched">
       Password is <strong>required</strong>
-    </div>
+    </ion-text>
       <div class="form-group">
           <button class="btn btn_primary" (click)="onSubmit()">
     Sign up
   </button>
       </div>
       <div *ngIf="(loaded$ | async) !== true && form.status === 'VALID'">
-        <div *ngIf="error$ | async as error">
+        <ion-text color="danger" *ngIf="error$ | async as error">
           {{error}}
-        </div>
+        </ion-text>
       </div>
   </form>
   <span class="text-link">Already have an account? <a routerLink="/tabs/auth/login">Sign in</a></span>

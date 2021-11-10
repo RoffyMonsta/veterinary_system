@@ -49,7 +49,6 @@ export class AuthState implements NgxsOnInit {
 
   @Selector()
   static user(state: AuthStateModel): User{
-    console.log(state.user);
     return state.user;
   };
 
@@ -94,7 +93,6 @@ export class AuthState implements NgxsOnInit {
   @Action(LoginSuccess)
   loginSuccess(
     ctx: StateContext<AuthStateModel>, {userData}: LoginSuccess) {
-      console.log(userData);
       ctx.patchState({
         loading: false,
         loaded: true,
@@ -174,7 +172,6 @@ export class AuthState implements NgxsOnInit {
   @Action(UpdateUserSuccess)
   updateUserSuccess(
     ctx: StateContext<AuthStateModel>, {userData}: UpdateUserSuccess) {
-      console.log(userData);
       const state = ctx.getState();
       const user = {...state.user};
       user.imgurl = userData.imgurl;

@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { Observable, Subscription } from 'rxjs';
+import { GetAnimals } from './animals/animal.actions';
+import { AuthState } from './auth/auth.state';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +10,20 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  constructor() {}
+export class AppComponent implements OnInit, OnDestroy{
+  @Select (AuthState.isAuthenticated) isAuth$: Observable<boolean>;
+  subscription = new Subscription();
+  constructor(private store: Store) {}
+  ngOnInit(): void {
+    this.subscription.add(
+      this.isAuth$.subscribe(val=>{
+        if(val){
+          this.store.dispatch(new GetAnimals());
+        }
+      })
+    );
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

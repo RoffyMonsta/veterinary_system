@@ -12,23 +12,10 @@ import { AnimalState } from '../animal.state';
   styleUrls: ['./all-animals.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AllAnimalsComponent implements OnInit, OnDestroy {
+export class AllAnimalsComponent {
   @Select (AnimalState.animals) animals$: Observable<Animal[]>;
   @Select (AuthState.isAuthenticated) isAuth$: Observable<boolean>;
-  subscription = new Subscription();
-  constructor(private store: Store) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.subscription.add(
-      this.isAuth$.subscribe(val=>{
-        if(val){
-          this.store.dispatch(new GetAnimals());
-        }
-      })
-    );
-  }
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 
 }
