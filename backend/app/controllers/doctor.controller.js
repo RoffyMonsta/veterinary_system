@@ -10,7 +10,6 @@ const pool = new Pool({
 })
 
 exports.getDoctors = (request, response) => {
-    const userId = parseInt(request.get('userid'));
     pool.query('SELECT * FROM doctors', (error, results) => {
         if (error) {
             throw error

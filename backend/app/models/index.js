@@ -30,6 +30,7 @@ db.doctor = require("../models/doctor.model.js")(sequelize, Sequelize);
 db.timestamp = require("../models/timestamp.model.js")(sequelize, Sequelize);
 db.schedule = require("../models/schedule.model.js")(sequelize, Sequelize);
 db.visit = require("../models/visit.model.js")(sequelize, Sequelize);
+db.clinic = require("../models/clinic.model.js")(sequelize, Sequelize);
 db.role.belongsToMany(db.user, {
     through: "user_roles",
     foreignKey: "roleId",
@@ -51,7 +52,10 @@ db.doctor.hasMany(db.schedule, {
 db.timestamp.hasMany(db.schedule, {
     foreignKey: 'timestampid'
 });
-
+//Doctor
+db.doctor.hasMany(db.doctor, {
+    foreignKey: 'clinicId'
+});
 //Visit
 db.schedule.hasMany(db.visit,{
     foreignKey: 'scheduleid'

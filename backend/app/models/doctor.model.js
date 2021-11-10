@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
         imgurl: {
             type: Sequelize.STRING
         },
-        specialization: {
+        area: {
             type: Sequelize.STRING
         },
         description: {

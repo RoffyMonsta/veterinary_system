@@ -18,12 +18,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // database
 const db = require("./app/models");
+const { clinic } = require("./app/models");
 const Role = db.role;
 const User = db.user;
 const Doctor = db.doctor;
 const Animal = db.animal;
 const Timestamp = db.timestamp;
 const Schedule = db.schedule;
+const Clinic = db.clinic;
 db.sequelize.sync();
 // force: true will drop the table if it already exists
 // db.sequelize.sync({ force: true }).then(() => {
@@ -43,6 +45,7 @@ require('./app/routes/animal.routes')(app);
 require('./app/routes/doctor.routes')(app);
 require('./app/routes/schedule.routes')(app);
 require('./app/routes/visit.routes')(app);
+require('./app/routes/clinic.routes')(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
@@ -75,6 +78,25 @@ function CreateSchedule() {
     }
 }
 
+function CreateClinics() {
+    Clinic.create({
+        name: 'Пан Коцький',
+        latitude: 48.26897007357895,
+        longitude: 25.940208543938567,
+        pic: 'https://pankotskyj.com/images/main_photos/all.jpg',
+        onlyVaccinated: true,
+        onlyPassport: false
+    });
+    Clinic.create({
+        name: 'Панда',
+        latitude: 48.27422343359462,
+        longitude: 25.96092041189593,
+        pic: 'https://s3.eu-central-1.amazonaws.com/listmusor/production/111664/gallery/big/5b9add994e950.jpg?1316609607',
+        onlyVaccinated: true,
+        onlyPassport: true
+    });
+}
+
 function initial() {
     Role.create({
         id: 1,
@@ -93,27 +115,32 @@ function initial() {
     Doctor.create({
         fullname: "Losovetska Anastasia",
         imgurl: "https://www.indiaeducation.net/imagesvr_ce/8982/iStock_000009819502Small.jpg",
-        specialization: "Home pets",
+        area: "Home pets",
+        clinicId: 1,
         description: "I've graduated from Lviv National Veterinary University of Veterinary Medicine and Biotechnology. Gzycki in 2014. I have been working for this company since 2015."
     });
     Doctor.create({
         fullname: "Ivanov Ivan",
         imgurl: "https://5.imimg.com/data5/BX/KU/ML/SELLER-6134433/veterinary-doctor-500x500.jpg",
-        specialization: "Home pets",
+        area: "Home pets",
+        clinicId: 2,
         description: "I've graduated from Lviv National Veterinary University of Veterinary Medicine and Biotechnology. Gzycki in 2013. I've been working for this company since 2016."
     });
     Doctor.create({
         fullname: "Andrusiak Valeria",
         imgurl: "https://uploads.sarvgyan.com/2016/03/Veterinary.jpg",
-        specialization: "Exotic pets",
+        area: "Exotic pets",
+        clinicId: 2,
         description: "I've graduated from Kamyanets-Podilsky Agrarian University with a degree in Exotic Animals in 2012. Since 2013 I've been working in this clinic."
     });
     Doctor.create({
         fullname: "Demidov Denys",
         imgurl: "https://www.colourbox.com/preview/6980687-veterinarian-doctor-with-jack-russell.jpg",
-        specialization: "Home pets",
+        area: "Home pets",
+        clinicId: 1,
         description: "I've graduated from Lviv National University with a degree in Veterinary Medicine in 2011. I've been working for this company since 2015."
     });
     CreateTimestamp();
     CreateSchedule();
+    CreateClinics();
 }
