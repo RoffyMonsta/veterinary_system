@@ -9,6 +9,9 @@ module.exports = (sequelize, Sequelize) => {
         latitude: {
             type: Sequelize.DOUBLE
         },
+        address: {
+            type: Sequelize.STRING
+        },
         pic: {
             type: Sequelize.STRING
         },

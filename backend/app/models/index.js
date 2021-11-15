@@ -45,24 +45,10 @@ db.user.belongsToMany(db.role, {
 db.user.hasMany(db.animal, {
     foreignKey: 'userid'
 });
-//Schedule
-db.doctor.hasMany(db.schedule, {
-    foreignKey: 'doctorid'
-});
-db.timestamp.hasMany(db.schedule, {
-    foreignKey: 'timestampid'
-});
 //Doctor
-db.doctor.hasMany(db.doctor, {
-    foreignKey: 'clinicId'
-});
-//Visit
-db.schedule.hasMany(db.visit,{
-    foreignKey: 'scheduleid'
-});
-db.animal.hasMany(db.visit,{
-    foreignKey: 'animalid'
-});
+// db.doctor.hasMany(db.doctor, {
+//     foreignKey: 'clinicId'
+// });
 db.ROLES = ["user", "admin", "doctor"];
 
 module.exports = db;

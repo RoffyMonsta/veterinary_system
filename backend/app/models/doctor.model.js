@@ -6,11 +6,11 @@ module.exports = (sequelize, Sequelize) => {
         imgurl: {
             type: Sequelize.STRING
         },
-        area: {
+        specialization: {
             type: Sequelize.STRING
         },
-        description: {
-            type: Sequelize.STRING
+        clinicId: {
+            type: Sequelize.INTEGER
         }
     });
 
