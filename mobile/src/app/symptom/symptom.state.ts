@@ -41,43 +41,134 @@ function deg2rad(deg) {
 
 const Areas: AreaOfDisease[] = [
   {
-  id: 1,
-  name: 'Home pets',
-  symptoms: [
-    'Symptom1', 'Symptom2', 'Symptom3'
-  ]
+    id: 1,
+    name: 'Гастроентеролог',
+    symptoms: [
+      'Погіршення апетиту',
+      'Блювання',
+      'Пронос',
+      'Закреп',
+      'Болючість в ділянці живота',
+      'Зміна кольору чи консистенції калу',
+      'Відмова від корму',
+      'Підвищення температури'
+    ]
   },
   {
     id: 2,
-    name: 'area2',
+    name: 'Кардіолог',
     symptoms: [
-      'Symptom2', 'Symptom4', 'Symptom1'
+      'Задишка',
+      'Кашель',
+      'Ціанотичність (синюшність) слизових оболонок',
+      'В’ялість',
+      'Непритомність',
     ]
-    },
+  },
   {
     id: 3,
-    name: 'area3',
+    name: 'Нефролог',
     symptoms: [
-      'Symptom4', 'Symptom1', 'Symptom2'
+      'Часте сечовипускання',
+      'Рідке сечовипускання',
+      'Часті позиви до сечовипускання',
+      'Зменшення кількості сечі',
+      'Збільшення кількості сечі ',
+      'Спрага',
+      'Зміна кольору чи консистенції сечі'
     ]
-    }
+  },
+  {
+    id: 4,
+    name: 'Травматолог-ортопед',
+    symptoms: [
+      'Перелом',
+      'Забій',
+      'Хромання',
+      'Болючість під час згинання кінцівок'
+    ]
+  },
+  {
+    id: 5,
+    name: 'Невролог',
+    symptoms: [
+      'Судоми',
+      'Непритомність',
+      'Відсутність рефлексів',
+      'Парез',
+      'Параліч',
+      'В’ялість'
+    ]
+  },
+  {
+    id: 6,
+    name: 'Дерматолог',
+    symptoms: [
+      'Розчухи',
+      'Висипи',
+      'Облисіння',
+      'Інтенсивна линька',
+      'Неприємний запах шкіри',
+      'Рани',
+      'Почервоніння шкіри'
+    ]
+  },
+  {
+    id: 7,
+    name: 'Стоматолог',
+    symptoms: [
+      'Почервоніння ясен',
+      'Зубний наліт/камінь',
+      'Випадіння зубів',
+      'Кровоточивість ясен',
+      'Погіршення апетиту',
+      'Підвищення температури'
+    ]
+  },
 ];
 const Symptoms: string[] = [
-  'Symptom1',
-  'Symptom2',
-  'Symptom3',
-  'Symptom4',
-  'Symptom5',
-  'Symptom6',
-  'Symptom7',
-  'Symptom8',
-  'Symptom9',
-  'Symptom10',
-  'Symptom11',
-  'Symptom12',
-  'Symptom13',
+  'Новоутворення',
+  'Відмова від корму',
+  'В’ялість',
+  'Підвищення температури',
+  'Погіршення апетиту',
+  'Блювання',
+  'Пронос',
+  'Закреп',
+  'Болючість в ділянці живота',
+  'Зміна кольору чи консистенції калу',
+  'Задишка',
+  'Кашель',
+  'Ціанотичність (синюшність) слизових оболонок',
+  'Непритомність',
+  'Часте, сечовипускання',
+  'Рідке, сечовипускання',
+  'Часті позиви до сечовипускання',
+  'Зменшення кількості сечі',
+  'Збільшення кількості сечі',
+  'Спрага',
+  'Зміна кольору чи консистенції сечі',
+  'Перелом',
+  'Забій',
+  'Хромання',
+  'Болючість під час згинання кінцівок',
+  'Судоми',
+  'Відсутність рефлексів',
+  'Парез',
+  'Параліч',
+  'Розчухи',
+  'Висипи',
+  'Облисіння',
+  'Інтенсивна линька',
+  'Неприємний запах шкіри',
+  'Рани',
+  'Почервоніння шкіри',
+  'Почервоніння ясен',
+  'Зубний наліт/камінь',
+  'Випадіння зубів',
+  'Кровоточивість ясен',
+].sort((a, b) => a.localeCompare(b));
 
-];
 export class SymptomStateModel {
   loading: boolean;
   loaded: boolean;
@@ -170,6 +261,7 @@ ngxsOnInit(){}
   @Action(GetClinicsSuccess)
   getClinicsSuccess(
     ctx: StateContext<SymptomStateModel>, {clinics}: GetClinicsSuccess) {
+      console.log(clinics);
       ctx.patchState({
         clinics
       });
@@ -207,7 +299,6 @@ ngxsOnInit(){}
   @Action(SearchForClinics)
   searchForClinics(
     ctx: StateContext<SymptomStateModel>, {symptoms, animal}: SearchForClinics) {
-      console.log(animal);
       ctx.patchState({
         error: null
       });
@@ -226,9 +317,9 @@ ngxsOnInit(){}
           if (max > 0) {
             const currentArea = areas[indexMax].name;
             const rightDoctors = [...state.doctors].filter(x => {
-              return x.area === currentArea;
+              return x.specialization === currentArea;
             });
-            const clinicIds = rightDoctors.map( val=> val.id);
+            const clinicIds = rightDoctors.map( val=> val.clinicId);
             const clinicsWithDoctors = [...state.clinics].filter(
               clinic => {
                 return (
@@ -249,7 +340,6 @@ ngxsOnInit(){}
                 clinicsToShow.sort((a, b) => {
                   return a.distance - b.distance;
                 });
-                console.log(clinicsToShow);
                 ctx.patchState({
                   clinicsToShow
                 });

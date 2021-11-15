@@ -11,7 +11,8 @@
           {{clinic.name}}</ion-card-title>
       </ion-card-header>
       <ion-card-content *ngIf="clinic?.distance">
-        This clinic is {{clinic?.distance | number}} km from you
+        This clinic is {{clinic?.distance | number}} km from you <br>
+        {{clinic?.address}}
       </ion-card-content>
     </div>
   </ion-card>

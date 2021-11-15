@@ -8,6 +8,7 @@ export interface Clinic {
   name: string;
   longitude: number;
   latitude: number;
+  address: string;
   pic: string;
   distance?: number;
   onlyVaccinated: boolean;
@@ -24,8 +25,9 @@ export interface Doctor {
   id: number;
   fullname: string;
   imgurl: string;
-  area: string;
+  specialization: string;
   description: string;
+  clinicId: number;
 }
 
 export interface AnimalInfo {
