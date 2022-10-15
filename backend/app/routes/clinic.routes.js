@@ -1,6 +1,5 @@
 const { authJwt } = require("../middleware");
-const controller = require("../controllers/clinic.controller");
-
+const { getAllClinics } = require("./../controllers/clinic.controller");
 module.exports = function(app) {
     app.use(function(req, res, next) {
         res.header(
@@ -10,5 +9,5 @@ module.exports = function(app) {
         next();
     });
 
-    app.get("/api/clinics", controller.getAllClinics);
+    app.get("/api/clinics", getAllClinics);
 };

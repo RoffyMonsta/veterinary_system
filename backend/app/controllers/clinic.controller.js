@@ -1,5 +1,6 @@
 const db = require("../models");
 const Clinic = db.clinic;
+const WorkingDay = db.workingDay;
 const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'postgres',
@@ -9,11 +10,28 @@ const pool = new Pool({
     port: 5432,
 })
 
-exports.getAllClinics = (request, response) => {
-    pool.query('SELECT * FROM clinics', (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(200).json(results.rows)
-    })
+async function getAllClinics(request, response) {
+    const clinics = await Clinic.findAll();
+    const clinicsValue = clinics.map(clinics => {
+        return clinics.dataValues
+    });
+    const res = Promise.all(clinicsValue.map( async clinic => {
+        const days = await WorkingDay.findAll({
+            where: {
+              clinicId: clinic.id,
+            }
+          });
+          const daysValue = days.map (days => {
+            return days.dataValues
+            });
+          clinic.workingDays = daysValue;
+          return clinic
+    })).then( clinics => {
+        response.status(200).json(clinics)
+    });
+    
+};
+
+module.exports = {
+    getAllClinics
 };

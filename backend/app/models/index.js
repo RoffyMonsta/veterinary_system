@@ -31,6 +31,7 @@ db.timestamp = require("../models/timestamp.model.js")(sequelize, Sequelize);
 db.schedule = require("../models/schedule.model.js")(sequelize, Sequelize);
 db.visit = require("../models/visit.model.js")(sequelize, Sequelize);
 db.clinic = require("../models/clinic.model.js")(sequelize, Sequelize);
+db.workingDay = require("../models/workingDay.model.js")(sequelize, Sequelize);
 db.role.belongsToMany(db.user, {
     through: "user_roles",
     foreignKey: "roleId",

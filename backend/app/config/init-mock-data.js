@@ -1,6 +1,7 @@
 const db = require("../models");
 const Clinic = db.clinic;
 const Doctor = db.doctor;
+const WeekDay = db.workingDay;
 function initMockData() {
   CreateClinics();
   CreateDoctors();
@@ -109,8 +110,36 @@ async function CreateClinics() {
       phoneNumber: '+380937001234',
       address: 'вулиця Південно-Кільцева, 2а, Чернівці, Чернівецька область, 58013'
   }));
-  console.log('createCalls', createCalls);
-  return await Promise.allSettled(createCalls);
+  const res = await Promise.allSettled(createCalls);
+  const clinics = res.filter(res => res.status == 'fulfilled').map((res) => { 
+    return res.value.dataValues;
+  }
+    );
+  clinics.forEach( clinic => {
+    CreateWorkingDays(clinic);
+  });
+  return clinics
+}
+
+function CreateWorkingDays(clinic) {
+    const weekDays = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
+    ];
+
+    weekDays.forEach( day => {
+        WeekDay.create({
+            day: day,
+            startTime: getRandomInt(6, 12),
+            endTime: getRandomInt(16, 21),
+            clinicId: clinic.id
+        });
+    })
 }
 
 function CreateDoctors() {
