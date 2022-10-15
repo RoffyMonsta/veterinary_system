@@ -10,3 +10,17 @@ ionic-selectable{
   height: 44px !important;
 
 }
+.symptoms__content {
+  padding: 8px;
+}
+ion-content {
+  --padding-bottom: 8px;
+  --padding-end: 8px;
+  --padding-start: 8px;
+  --padding-top: 8px;
+}
+
+ion-button {
+  --padding-start: 8px;
+  --padding-end: 8px;
+}

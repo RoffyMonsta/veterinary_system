@@ -11,6 +11,8 @@ import { SymptomService } from './symptom.service';
 import { SymptomState } from './symptom.state';
 import { IonicSelectableModule } from 'ionic-selectable';
 import { ClinicCardComponent } from './clinic-card/clinic-card.component';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
+
 export const SYMPTOM_ROUTES: Routes = [
 
   {
@@ -33,7 +35,8 @@ export const SYMPTOM_ROUTES: Routes = [
   ],
   providers:[
     Geolocation,
-    SymptomService
+    SymptomService,
+    CallNumber
   ]
 })
 export class SymptomModule { }

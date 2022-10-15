@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthState } from 'src/app/auth/auth.state';
 import { AnimalState } from 'src/app/animals/animal.state';
 import { Animal } from 'src/app/animals/animal.model';
+
 @Component({
   selector: 'app-main-symptom',
   templateUrl: './main-symptom.component.html',

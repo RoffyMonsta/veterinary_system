@@ -8,9 +8,14 @@ let transporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     requireTLS: true,
+    tls: {
+        rejectUnauthorized: true,
+        minVersion: "TLSv1.2"
+    },
     auth: {
         user: user,
         pass: pass
+        // antonlomovatskyivetmailerpass
     }
 });
 

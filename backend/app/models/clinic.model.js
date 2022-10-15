@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
         address: {
             type: Sequelize.STRING
         },
-        pic: {
+        imgUrl: {
             type: Sequelize.STRING
         },
         onlyVaccinated: {
@@ -22,6 +22,9 @@ module.exports = (sequelize, Sequelize) => {
         onlyPassport: {
             type: Sequelize.BOOLEAN,
             allowNull: false
+        },
+        phoneNumber: {
+            type: Sequelize.STRING
         },
     });
 

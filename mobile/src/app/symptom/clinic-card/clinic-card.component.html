@@ -1,18 +1,21 @@
 
 
   <ion-card *ngIf="clinic" class="clinic">
-    <ion-avatar>
-      <img *ngIf="!clinic.pic" src="assets/icon/clinic.png" alt="icon" class="clinic__icon" >
-      <img [src]="clinic.pic" alt="icon" class="clinic__pic" *ngIf="clinic.pic">
-    </ion-avatar>
-    <div>
-      <ion-card-header>
-        <ion-card-title>
-          {{clinic.name}}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content *ngIf="clinic?.distance">
-        This clinic is {{clinic?.distance | number}} km from you <br>
-        {{clinic?.address}}
-      </ion-card-content>
+    <div style="display: flex; flex-direction: row; align-items: center;">
+      <ion-avatar>
+        <img *ngIf="!clinic.imgUrl" src="assets/icon/clinic.png" alt="icon" class="clinic__icon" >
+        <img [src]="clinic.imgUrl" alt="icon" class="clinic__pic" *ngIf="clinic.imgUrl">
+      </ion-avatar>
+      <div>
+        <ion-card-header>
+          <ion-card-title>
+            {{clinic.name}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content >
+          <span *ngIf="clinic?.distance">This clinic is {{clinic?.distance | number}} km from you <br></span>
+          {{clinic?.address}}
+        </ion-card-content>
+      </div>
     </div>
+    <ion-button fill="clear" *ngIf="clinic.phoneNumber">Call the clinic: <a [href]="'tel:'+ clinic.phoneNumber">{{ clinic.phoneNumber }}</a></ion-button>
   </ion-card>

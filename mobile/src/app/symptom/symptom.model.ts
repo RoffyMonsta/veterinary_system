@@ -9,10 +9,11 @@ export interface Clinic {
   longitude: number;
   latitude: number;
   address: string;
-  pic: string;
+  imgUrl: string;
   distance?: number;
   onlyVaccinated: boolean;
   onlyPassport: boolean;
+  phoneNumber: string;
 }
 
 export interface AreaOfDisease {

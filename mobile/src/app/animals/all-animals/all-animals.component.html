@@ -18,7 +18,7 @@
     </ng-container>
     <ng-template #noAnimals>
       <span class="not-auth">
-        Sorry you don't have any animals. Try to <a routerLink="create">create one</a>
+        Sorry you don't have any animals. Try to <a routerLink="create">add one</a>
       </span>
     </ng-template>
 
@@ -30,4 +30,4 @@
     </ng-template>
   </div>
 </ion-content>
-<ion-button expand="full" class="new-animal" routerLink="create" *ngIf="isAuth$ | async">Add new animal</ion-button>
+<p class="ion-padding-start ion-padding-end"><ion-button expand="full" class="new-animal" routerLink="create" *ngIf="isAuth$ | async">Add new animal</ion-button></p>

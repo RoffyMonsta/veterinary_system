@@ -79,6 +79,11 @@ exports.signin = (req, res) => {
                 return res.status(404).send({ message: "User Not found." });
             }
             if (user.status != "Active") {
+                node.sendConfirmationEmail(
+                    user.username,
+                    user.email,
+                    user.confirmationCode
+                );
                 return res.status(401).send({
                     message: "Pending Account. Please Verify Your Email!",
                 });

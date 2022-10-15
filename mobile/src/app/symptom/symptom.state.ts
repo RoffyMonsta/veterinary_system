@@ -21,7 +21,9 @@ import { GetClinics,
   SetClinicsToNull} from './symptom.actions';
 import { AreaOfDisease, Clinic, Coordinates, Doctor } from './symptom.model';
 
-function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2): number {
+  console.log('1', lat1, lon1);
+  console.log('2', lat2, lon2);
   const R = 6371; // Radius of the earth in km
   const dLat = deg2rad(lat2-lat1);  // deg2rad below
   const dLon = deg2rad(lon2-lon1);
@@ -32,7 +34,7 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
     ;
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   const d = R * c; // Distance in km
-  return d;
+  return Number(d.toFixed(1));
 }
 
 function deg2rad(deg) {
@@ -302,8 +304,7 @@ ngxsOnInit(){}
       ctx.patchState({
         error: null
       });
-      if (symptoms){
-        if (symptoms.length){
+      if (symptoms && symptoms.length){
           const state = ctx.getState();
           const intersections = [];
           const areas = [...state.areas];
@@ -367,12 +368,6 @@ ngxsOnInit(){}
             error: 'No symptoms in'
           });
         }
-      }
-      else {
-        ctx.patchState({
-          error: 'No symptoms in'
-        });
-      }
   }
 
   @Action(SetClinicsToNull)
