@@ -305,6 +305,9 @@ ngxsOnInit(){}
         error: null
       });
       if (symptoms && symptoms.length){
+          const date = new Date();
+          const currentHour = date.getHours();
+          const currentDay = date.toLocaleString('en-US', {weekday: 'long'});
           const state = ctx.getState();
           const intersections = [];
           const areas = [...state.areas];
@@ -330,10 +333,19 @@ ngxsOnInit(){}
                   );
               }
             );
-            if(clinicsWithDoctors.length){
+            const workingClinics = clinicsWithDoctors.filter( clinic => {
+              const currentClinicDay = clinic.workingDays.find( day => day.day === currentDay);
+              return (
+                currentClinicDay.startTime <= currentHour &&
+                currentClinicDay.endTime > currentHour
+              )
+            });
+            console.log('workingClinics', workingClinics);
+            console.log('clinicsWithDoctors', clinicsWithDoctors);
+            if(workingClinics.length){
               const coords = {...state.coords};
               if (coords !== null){
-                const clinicsToShow: Clinic[] = clinicsWithDoctors.map( clinic => {
+                const clinicsToShow: Clinic[] = workingClinics.map( clinic => {
                   const item = {...clinic};
                   item.distance = getDistanceFromLatLonInKm(coords.latitude, coords.longitude, item.latitude, item.longitude);
                   return item;
@@ -353,7 +365,7 @@ ngxsOnInit(){}
             }
             else {
               ctx.patchState({
-                error: 'No matches for your symptoms'
+                error: 'No clinics are working at the moment, please call the emergency phone number'
               });
             }
           }

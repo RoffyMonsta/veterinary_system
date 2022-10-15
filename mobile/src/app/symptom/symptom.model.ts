@@ -3,6 +3,16 @@ export interface Coordinates {
   latitude: number;
 }
 
+export enum Weekdays {
+  Monday = 'Monday',
+  Tuesday = 'Tuesday',
+  Wednesday = 'Wednesday',
+  Thursday = 'Thursday',
+  Friday = 'Friday',
+  Saturday = 'Saturday',
+  Sunday = 'Sunday'
+}
+
 export interface Clinic {
   id: number;
   name: string;
@@ -14,6 +24,15 @@ export interface Clinic {
   onlyVaccinated: boolean;
   onlyPassport: boolean;
   phoneNumber: string;
+  workingDays: WorkingDay[];
+};
+
+export interface WorkingDay {
+  id: number,
+  day: Weekdays,
+  startTime: number,
+  endTime: number,
+  clinicId: number
 }
 
 export interface AreaOfDisease {

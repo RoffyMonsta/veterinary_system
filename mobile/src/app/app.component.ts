@@ -3,6 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { GetAnimals } from './animals/animal.actions';
 import { AuthState } from './auth/auth.state';
+import { Weekdays } from './symptom/symptom.model';
 
 @Component({
   selector: 'app-root',
